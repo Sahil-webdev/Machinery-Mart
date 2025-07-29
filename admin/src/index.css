@@ -1,1 +1,55 @@
 @import "tailwindcss";
+
+/* .btn-primary {
+    @apply flex items-center gap-2 bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-5 py-2.5 rounded-xl font-semibold shadow hover:from-cyan-600 hover:to-blue-700 transition;
+  }
+  .btn-secondary {
+    @apply flex items-center bg-white/70 backdrop-blur px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 hover:bg-white/90 transition;
+  }
+  .icon-btn {
+    @apply p-2 rounded-lg transition;
+  }
+  .icon-btn-sm {
+    @apply p-1.5 rounded-md transition;
+  }
+  .view-btn {
+    @apply px-4 py-2 rounded-xl text-gray-600 hover:text-gray-800 transition;
+  }
+  .pg-btn {
+    @apply w-9 h-9 rounded-lg flex items-center justify-center bg-white/70 border border-gray-200 hover:bg-white;
+  }
+  .pg-btn-active {
+    @apply bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow; 
+  }*/
+  
+
+
+
+
+
+  /* style helpers */
+
+.btn-primary {
+  @apply flex items-center justify-center bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-5 py-2.5 rounded-xl font-semibold shadow hover:from-emerald-600 hover:to-teal-700 transition;
+}
+.btn-secondary {
+  @apply flex items-center justify-center bg-white/70 backdrop-blur px-5 py-2.5 rounded-xl border border-gray-200 text-gray-700 hover:bg-white/90 transition;
+}
+.icon-btn {
+  @apply p-2 rounded-lg transition;
+}
+.icon-btn-sm {
+  @apply p-1.5 rounded-md transition;
+}
+.view-btn {
+  @apply flex items-center justify-center w-10 h-10 rounded-xl text-gray-600 hover:text-gray-800 hover:bg-white transition;
+}
+.pg-btn {
+  @apply w-9 h-9 flex items-center justify-center rounded-lg bg-white/70 border border-gray-200 hover:bg-white transition disabled:opacity-40;
+}
+.pg-btn-active {
+  @apply bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow;
+}
+.filter-select {
+  @apply px-4 py-2 bg-white/70 border-2 border-gray-200 rounded-xl focus:outline-emerald-500 transition font-medium;
+}
