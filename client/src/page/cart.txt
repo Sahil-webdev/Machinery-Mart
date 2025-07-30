@@ -1,0 +1,236 @@
+"use client"
+
+import { useState } from "react"
+import { ChevronLeft, ShoppingBag, Star, Trash2, Minus, Plus, Heart, ShoppingBasket } from "lucide-react"
+import { Link } from "react-router-dom"
+
+const Cart = () => {
+    const [cartItems, setCartItems] = useState([
+        {
+            id: 1,
+            name: "Rick Owens",
+            price: 2445,
+            originalPrice: 3445,
+            rating: 3.5,
+            quantity: 1,
+            image: "https://placehold.co/100x100/10B981/FFFFFF?text=Dress",
+        },
+        {
+            id: 2,
+            name: "Still Kelly",
+            price: 2245,
+            originalPrice: 3000,
+            rating: 3.5,
+            quantity: 1,
+            image: "https://placehold.co/100x100/14B8A6/FFFFFF?text=Dress",
+        },
+        {
+            id: 3,
+            name: "Chic Relics",
+            price: 2445,
+            originalPrice: 3200,
+            rating: 3.5,
+            quantity: 1,
+            image: "https://placehold.co/100x100/84CC16/FFFFFF?text=Dress",
+        },
+    ])
+
+    const [promoCode, setPromoCode] = useState("")
+
+    const orderAmount = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
+    const discount = 115
+    const totalPayment = orderAmount - discount
+
+    const handleQuantityChange = (id, delta) => {
+        setCartItems((prevItems) =>
+            prevItems.map((item) => (item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item)),
+        )
+    }
+
+    const handleRemoveItem = (id) => {
+        setCartItems((prevItems) => prevItems.filter((item) => item.id !== id))
+    }
+
+    const applyPromoCode = () => {
+        console.log("Applying promo code:", promoCode)
+        const messageBox = document.createElement("div")
+        messageBox.className = "fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+        messageBox.innerHTML = `
+            <div class="bg-gradient-to-br from-emerald-900 to-teal-900 p-6 rounded-2xl shadow-2xl text-white text-center border border-emerald-500/30">
+                <p class="mb-4 text-lg">Promo code "${promoCode}" applied! (This is a dummy message)</p>
+                <button id="closeMessageBox" class="bg-gradient-to-r from-emerald-600 to-teal-600 px-6 py-2 rounded-full font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-300">OK</button>
+            </div>
+        `
+        document.body.appendChild(messageBox)
+        document.getElementById("closeMessageBox").onclick = () => {
+            document.body.removeChild(messageBox)
+        }
+    }
+
+    return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 pb-25 text-white font-inter flex flex-col items-center p-4 sm:p-6 md:p-8">
+            {/* Header section */}
+            <header className="w-full max-w-md md:max-w-5xl flex justify-between items-center py-4">
+                <Link to="/">
+                    <button className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl hover:from-indigo-600 hover:to-purple-600 transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <ChevronLeft size={24} />
+                    </button>
+                </Link>
+                <h1 className="text-xl font-semibold bg-blue-700 bg-clip-text text-transparent">
+                    Cart
+                </h1>
+                <button className="p-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-xl md:p-3 md:rounded-2xl">
+              <Link to="/cart">
+                <ShoppingBasket className="hover:scale-105 text-white md:w-6 md:h-6" size={24} />
+              </Link>
+            </button>
+            </header>
+
+            {/* Main content area */}
+            <div className="w-full max-w-md md:max-w-5xl flex-grow grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                {/* Left Column: Cart Items Section */}
+                <div className="space-y-4 overflow-y-auto pb-4 md:pb-0">
+                    {cartItems.length === 0 ? (
+                        <div className="text-center mt-10 p-8 bg-gradient-to-br from-emerald-900/30 to-teal-900/30 rounded-2xl border border-emerald-500/20 backdrop-blur-sm">
+                            <ShoppingBasket size={48} className="mx-auto mb-4 text-emerald-300" />
+                            <p className="text-emerald-200 text-lg">Your cart is empty.</p>
+                        </div>
+                    ) : (
+                        cartItems.map((item) => (
+                            <div
+                                key={item.id}
+                                className="bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 rounded-2xl p-4 flex items-center shadow-xl border border-white/20 backdrop-blur-sm hover:shadow-2xl transition-all duration-300"
+                            >
+                                <div className="flex-shrink-0 w-24 h-24 rounded-xl overflow-hidden mr-4 relative">
+                                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/30 to-teal-200/30 rounded-xl blur-sm"></div>
+                                    <img
+                                        src={item.image || "/placeholder.svg"}
+                                        alt={item.name}
+                                        className="relative w-full h-full object-cover border border-white/30 rounded-xl"
+                                    />
+                                    <button className="absolute top-1 right-1 bg-white/90 backdrop-blur-sm rounded-full p-1 shadow-lg hover:scale-110 transition-all duration-300">
+                                        <Heart size={16} fill="currentColor" className="text-emerald-500" />
+                                    </button>
+                                </div>
+                                <div className="flex-grow">
+                                    <div className="flex justify-between items-start mb-1">
+                                        <h3 className="text-lg font-semibold bg-gradient-to-r from-slate-800 to-emerald-800 bg-clip-text text-transparent">
+                                            {item.name}
+                                        </h3>
+                                        <button
+                                            onClick={() => handleRemoveItem(item.id)}
+                                            className="text-red-500 hover:text-red-600 p-2 rounded-full hover:bg-red-50 transition-all duration-300"
+                                        >
+                                            <Trash2 size={20} />
+                                        </button>
+                                    </div>
+                                    <div className="flex items-center text-amber-500 text-sm mb-2">
+                                        <Star size={16} fill="currentColor" className="mr-1" />
+                                        <span className="font-medium">{item.rating}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <div className="flex items-baseline">
+                                            <span className="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                                                ${item.price}
+                                            </span>
+                                            {item.originalPrice && (
+                                                <span className="text-slate-500 line-through ml-2 text-sm">${item.originalPrice}</span>
+                                            )}
+                                        </div>
+                                        <div className="flex items-center bg-gradient-to-r from-emerald-100 to-teal-100 rounded-full border border-emerald-200">
+                                            <button
+                                                onClick={() => handleQuantityChange(item.id, -1)}
+                                                className="p-2 rounded-full text-emerald-700 hover:bg-emerald-200 transition-all duration-300"
+                                            >
+                                                <Minus size={16} />
+                                            </button>
+                                            <span className="px-3 text-slate-800 font-medium">{item.quantity}</span>
+                                            <button
+                                                onClick={() => handleQuantityChange(item.id, 1)}
+                                                className="p-2 rounded-full text-emerald-700 hover:bg-emerald-200 transition-all duration-300"
+                                            >
+                                                <Plus size={16} />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    )}
+                </div>
+
+                {/* Right Column: Promo Code, Order Summary, Checkout Button */}
+                <div className="flex flex-col space-y-4">
+                    {/* Promo Code Section */}
+                    <div className="bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 rounded-2xl p-4 flex items-center justify-between shadow-xl border border-white/20 backdrop-blur-sm">
+                        <input
+                            type="text"
+                            placeholder="Enter Promo Code"
+                            className="flex-grow bg-transparent border-none outline-none text-slate-800 placeholder-slate-500 text-base font-medium"
+                            value={promoCode}
+                            onChange={(e) => setPromoCode(e.target.value)}
+                        />
+                        <button
+                            onClick={applyPromoCode}
+                            className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white px-6 py-2 rounded-full font-semibold hover:from-emerald-700 hover:to-teal-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
+                        >
+                            Apply
+                        </button>
+                    </div>
+
+                    {/* Order Summary */}
+                    <div className="bg-gradient-to-br from-slate-50 via-emerald-50 to-teal-50 rounded-2xl p-6 shadow-xl border border-white/20 backdrop-blur-sm">
+                        <h3 className="text-lg font-semibold bg-gradient-to-r from-slate-800 to-emerald-800 bg-clip-text text-transparent mb-4">
+                            Order Summary
+                        </h3>
+                        <div className="flex justify-between items-center mb-3">
+                            <span className="text-slate-600 font-medium">Order Amount</span>
+                            <span className="text-slate-800 font-semibold">${orderAmount.toFixed(2)}</span>
+                        </div>
+                        <div className="flex justify-between items-center mb-3">
+                            <span className="text-slate-600 font-medium">Discount</span>
+                            <span className="text-lime-600 font-semibold">-${discount.toFixed(2)}</span>
+                        </div>
+                        <div className="border-t border-emerald-200 my-4"></div>
+                        <div className="flex justify-between items-center text-lg font-bold">
+                            <span className="bg-gradient-to-r from-slate-800 to-emerald-800 bg-clip-text text-transparent">
+                                Total Payment
+                            </span>
+                            <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+                                ${totalPayment.toFixed(2)}
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Checkout Button */}
+                    <div className="py-4 md:py-0">
+                        <button className="w-full bg-gradient-to-r from-lime-500 to-emerald-500 text-white py-4 rounded-2xl text-lg font-semibold shadow-xl hover:shadow-2xl hover:from-lime-600 hover:to-emerald-600 transition-all duration-300 transform hover:scale-105">
+                            <div className="flex items-center justify-center">
+                                <ShoppingBag size={20} className="mr-2" />
+                                Proceed to Checkout
+                            </div>
+                        </button>
+                    </div>
+
+                    {/* Additional Info Card */}
+                    <div className="bg-gradient-to-r from-emerald-100 to-lime-100 rounded-2xl p-4 border border-emerald-200">
+                        <div className="flex items-center text-emerald-700">
+                            <Heart size={16} className="mr-2" />
+                            <span className="text-sm font-medium">Free shipping on orders over $100!</span>
+                        </div>
+                    </div>
+
+                    {/* Eco-Friendly Badge */}
+                    <div className="bg-gradient-to-r from-green-100 to-teal-100 rounded-2xl p-4 border border-green-200">
+                        <div className="flex items-center text-green-700">
+                            <div className="w-3 h-3 bg-green-500 rounded-full mr-2 animate-pulse"></div>
+                            <span className="text-sm font-medium">🌱 Eco-friendly packaging included!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default Cart
