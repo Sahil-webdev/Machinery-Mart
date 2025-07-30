@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import hp from "../assets/hpimg.jpeg"
 import cuttingblade from "../assets/cuttingblade.jpeg"
 import weldingtorch from "../assets/weldingtorch.jpeg"
+import { Link } from "react-router-dom";
 
 // Sample cart data
 const initialCartItems = [
@@ -230,12 +231,14 @@ export default function Cart() {
                 </div>
               )}
               {/* Checkout Button */}
-              <button
-                onClick={handleCheckout}
-                className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white py-4 px-6 rounded-2xl font-bold text-lg hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition shadow-lg hover:shadow-xl transform hover:scale-105 mb-4"
-              >
-                Proceed to Checkout
-              </button>
+              <Link to="/checkout">
+                <button
+                  onClick={handleCheckout}
+                  className="w-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white py-4 px-6 rounded-2xl font-bold text-lg hover:from-blue-700 hover:via-indigo-700 hover:to-purple-700 transition shadow-lg hover:shadow-xl transform hover:scale-105 mb-4"
+                >
+                  Proceed to Checkout
+                </button>
+              </Link>
               {/* Security Badge */}
               <div className="text-center">
                 <div className="flex items-center justify-center gap-2 text-gray-600 text-sm">

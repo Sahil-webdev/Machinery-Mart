@@ -189,13 +189,12 @@ const ServicesPage = () => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex-shrink-0 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 md:px-5 md:py-3 md:rounded-xl md:text-sm ${
-                  selectedCategory === category.id
+                className={`flex-shrink-0 px-8 py-4 rounded-2xl font-semibold transition-all duration-300 md:px-5 md:py-3 md:rounded-xl md:text-sm ${selectedCategory === category.id
                     ? `bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg hover:shadow-xl transform scale-105`
                     : `${category.bg} ${category.text} hover:shadow-lg border border-white/50 hover:scale-105`
-                }`}
+                  }`}
               >
-                {category.name} 
+                {category.name}
               </button>
             ))}
           </div>
@@ -221,7 +220,7 @@ const ServicesPage = () => {
                 key={service.id}
                 className={`group relative ${service.cardBg} rounded-3xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-white/50 md:rounded-2xl`}
               >
-                
+
 
                 {/* Heart Icon */}
                 <button className="absolute top-5 left-5 z-20 p-3 bg-white/90 backdrop-blur-sm rounded-full shadow-md hover:scale-110 transition-all duration-300 md:top-4 md:left-4 md:p-2 hover:bg-red-50">
@@ -232,23 +231,25 @@ const ServicesPage = () => {
                 </button>
 
                 {/* Service Image */}
-                <div className="relative h-64 md:h-52 overflow-hidden">
-                  <img
-                    src={service.image || "/placeholder.svg"}
-                    alt={service.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-80`}></div>
+                <Link to="/service">
+                  <div className="relative h-64 md:h-52 overflow-hidden">
+                    <img
+                      src={service.image || "/placeholder.svg"}
+                      alt={service.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-80`}></div>
 
 
-                  {/* Price Badge */}
-                  <div className="absolute bottom-5 right-5 bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg md:bottom-4 md:right-4 md:px-3 md:py-2 md:rounded-xl border border-white/50">
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-gray-800 md:text-xl">${service.price}</div>
-                      <div className="text-sm text-gray-500 line-through">${service.originalPrice}</div>
+                    {/* Price Badge */}
+                    <div className="absolute bottom-5 right-5 bg-white/95 backdrop-blur-sm rounded-2xl px-4 py-3 shadow-lg md:bottom-4 md:right-4 md:px-3 md:py-2 md:rounded-xl border border-white/50">
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-gray-800 md:text-xl">${service.price}</div>
+                        <div className="text-sm text-gray-500 line-through">${service.originalPrice}</div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </Link>
 
                 {/* Card Content */}
                 <div className="p-6 md:p-5">

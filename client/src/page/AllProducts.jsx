@@ -48,7 +48,7 @@ const ProductsPage = () => {
       price: 2445,
       originalPrice: 3445,
       rating: 3.5,
-      image: "https://tiimg.tistatic.com/fp/1/007/978/light-weight-silver-paper-disposable-dona-134.jpg",
+      image: "https://xtrapowertools.com/site-img/product/1672733011129977278763b3e15374266.jpg",
       isNew: true,
       features: ["Premium Quality", "Limited Edition", "Free Shipping"],
     },
@@ -257,24 +257,26 @@ const ProductsPage = () => {
               </button>
 
               {/* Product Image - Reduced height for mobile */}
-              <div className="relative h-32 md:h-52 overflow-hidden">
-                <img
-                  src={product.image || "/placeholder.svg"}
-                  alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-indigo-600/10 opacity-90"></div>
+              <Link to="/product">
+                <div className="relative h-32 md:h-52 overflow-hidden">
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-indigo-600/10 opacity-90"></div>
 
-                {/* Price Badge - Smaller for mobile */}
-                <div className="absolute bottom-2 right-2 bg-white/95 backdrop-blur-sm rounded-lg px-2 py-1 shadow-lg md:bottom-4 md:right-4 md:px-3 md:py-2 md:rounded-xl border border-white/50">
-                  <div className="text-right">
-                    <div className="text-sm font-bold text-gray-800 md:text-xl">${product.price}</div>
-                    <div className="text-xs text-gray-500 line-through font-medium md:text-sm">
-                      ${product.originalPrice}
+                  {/* Price Badge - Smaller for mobile */}
+                  <div className="absolute bottom-2 right-2 bg-white/95 backdrop-blur-sm rounded-lg px-2 py-1 shadow-lg md:bottom-4 md:right-4 md:px-3 md:py-2 md:rounded-xl border border-white/50">
+                    <div className="text-right">
+                      <div className="text-sm font-bold text-gray-800 md:text-xl">${product.price}</div>
+                      <div className="text-xs text-gray-500 line-through font-medium md:text-sm">
+                        ${product.originalPrice}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
 
               {/* Card Content - Reduced padding for mobile */}
               <div className="p-3 md:p-5">
